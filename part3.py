@@ -2,6 +2,7 @@ import numpy as np
 from collections import defaultdict
 
 from helper import create_str, load_data, parse_x_y
+from part2 import get_crf_score
 
 
 def get_forward(x, tags, f):
@@ -146,9 +147,9 @@ def get_expected_count(x, tags, f):
     f_e_counts = defaultdict(float)
     
     forward_scores, alpha = get_forward(x, tags, f)
-    forward_prob = np.exp(min(alpha, 700))
+    # forward_prob = np.exp(min(alpha, 700))
     backward_scores, beta = get_backward(x, tags, f)
-    backward_prob = np.exp(min(beta, 700))
+    # backward_prob = np.exp(min(beta, 700))
 
     # START & STOP expected transition counts
     for j, tag in enumerate(tags):
