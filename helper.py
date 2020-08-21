@@ -27,9 +27,25 @@ def parse_x_y(data):
     y.append(data[i][:, 1].tolist())
 
   return x, y
+  
+
+def parse_x_y_z(data):
+    '''
+        Separate dataset into list of sentences and list of corresponding tag sequences and pos
+    '''
+    x = []
+    y = []
+    z = []
+
+    for i in range(len(data)):
+        x.append(data[i][:, 0].tolist())
+        y.append(data[i][:, 1].tolist())
+        z.append(data[i][:, 2].tolist())
+
+    return x, y, z
 
 
-def get_tags(path):
+def get_tags(path, ind):
     '''
         Get unique tags in dataset
     '''
@@ -38,9 +54,9 @@ def get_tags(path):
     with open(path) as fp:
         for empty, line in groupby(fp, lambda x: x.startswith('\n')):
             if not empty:
-                labels = set(d.split()[1] for d in line if len(d.strip()))
+                labels = set(d.split()[ind] for d in line if len(d.strip()))
                 tags = tags.union(labels)
-            
+
     return list(tags)
 
 
