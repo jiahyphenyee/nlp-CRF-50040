@@ -49,7 +49,7 @@ def get_transition_scores_pos(data):
         z_prev = "START"
         tag_count[z_prev] += 1
 
-        for x, y, z in sent:
+        for _, y, z in sent:
             transition_count[(z_prev, z)] += 1
             tag_count[z] += 1
             z_prev = z
