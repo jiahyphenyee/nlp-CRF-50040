@@ -1,5 +1,6 @@
 import numpy as np
 from itertools import groupby
+from conlleval import evaluate
 
 def load_data(path):
     '''
@@ -27,7 +28,7 @@ def parse_x_y(data):
     y.append(data[i][:, 1].tolist())
 
   return x, y
-  
+
 
 def parse_x_y_z(data):
     '''
@@ -61,7 +62,29 @@ def get_tags(path, ind):
 
 
 def create_str(prob_type, x, y):
-  '''
-    Create feature strings
-  '''
-  return f"{prob_type}:{x}+{y}"
+    '''
+        Create feature strings
+    '''
+    return f"{prob_type}:{x}+{y}"
+
+
+def get_evaluate(true_data, pred_tags):
+    _, ty = parse_x_y(true_data)
+
+    true_tags = []
+
+    for tag_seq in ty:
+        true_tags = true_tags + tag_seq
+
+    evaluate(true_tags, pred_tags)
+
+
+def get_evaluate_pos(true_data, pred_tags):
+    _, _, tz = parse_x_y_z(true_data)
+
+    true_tags = []
+
+    for tag_seq in tz:
+        true_tags = true_tags + tag_seq
+
+    evaluate(true_tags, pred_tags)
